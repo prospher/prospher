@@ -1,0 +1,23 @@
+# prospher
+
+> Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.
+
+prospher é um serviço de presença digital e captação de clientes voltado a advogados autônomos no Brasil. A oferta combina anúncios direcionados, uma landing page e atendimento via WhatsApp, dentro dos limites de publicidade da OAB (Provimento 205/2021). O site é uma página única (single page) com seções de navegação interna.
+
+## Página principal
+
+- [prospher](https://prospher.com.br/): Página inicial do site, com todas as seções abaixo.
+
+## Seções da página inicial
+
+- [Início](https://prospher.com.br/#topo): Apresentação da proposta — parar de depender só de indicações.
+- [O problema](https://prospher.com.br/#problema): Dores comuns do advogado autônomo — poucos clientes novos, dependência de indicação, concorrência com mais presença digital.
+- [A solução](https://prospher.com.br/#solucao): Etapas do processo — conversa inicial, diagnóstico, estratégia personalizada, execução e acompanhamento de resultados.
+- [O que você recebe](https://prospher.com.br/#recebe): Esteira de entrega — tráfego, landing page, leads qualificados e clientes.
+- [Dúvidas](https://prospher.com.br/#duvidas): Perguntas frequentes sobre conformidade com a OAB, necessidade de conhecimento de marketing, prazos e custo do diagnóstico inicial.
+- [Contato](https://prospher.com.br/#contato): Chamada para conversa via WhatsApp para diagnóstico gratuito.
+
+## Observações
+
+- Contato comercial é feito exclusivamente via WhatsApp, a partir dos botões da página.
+- O serviço é direcionado a advogados autônomos (pessoa física com OAB), não a escritórios com equipe de marketing própria.
