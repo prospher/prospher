@@ -13,19 +13,20 @@ const SITE_CONTENT = {
     description: "Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.",
   },
 
-  // Identificação da empresa. Alimenta o rodapé (Marco Civil / CDC), o JSON-LD
-  // e a Política de Privacidade.
+  // Identificação da empresa. Alimenta o rodapé (Marco Civil / CDC) e o JSON-LD.
   //
-  // ATENÇÃO: enquanto razaoSocial, cnpj, cidade e emailTitular estiverem null,
-  // o build NÃO gera a página /privacidade — publicar política sem identificar
-  // o controlador é pior do que não publicar — e o rodapé sai sem CNPJ.
+  // A prospher ainda opera como pessoa física, sem CNPJ — por isso razaoSocial/
+  // cnpj/cidade ficam null e o rodapé não exibe identidade de pessoa jurídica.
+  // A identificação do controlador e o texto legal em si vivem nas páginas
+  // estáticas politica-de-privacidade/ e politica-de-acesso/ (não são gerados
+  // a partir daqui). Se um dia a prospher virar pessoa jurídica, preencha
+  // razaoSocial/cnpj/cidade abaixo.
   site: {
     legal: {
       razaoSocial: null,      // ex.: "Prospher Tecnologia Ltda."
       cnpj: null,             // ex.: "00.000.000/0001-00"
       cidade: null,           // ex.: "São José do Rio Preto/SP"
-      emailTitular: null,     // e-mail que EXISTE e é lido — canal do art. 18 da LGPD
-      vigenciaPolitica: null, // ex.: "27/08/2026"; se null, usa a data do build
+      emailTitular: "prospher.adm@gmail.com", // canal do art. 18 da LGPD — usado no security.txt
     },
     // Perfis oficiais, usados em sameAs no JSON-LD. Só entram se preenchidos.
     sameAs: [],
@@ -205,7 +206,9 @@ const SITE_CONTENT = {
     // cadastro de usuário ele é recomendado, não obrigatório — e link morto
     // (href="#") em produção é pior do que link ausente.
     legalLinks: [
-      { label: "Política de Privacidade", href: "/privacidade" },
+      { label: "Política de Acesso", href: "politica-de-acesso/" },
+      { label: "Política de Privacidade", href: "politica-de-privacidade/" },
+      { label: "Termos de Uso", href: "#" },
     ],
   },
 

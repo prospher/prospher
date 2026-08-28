@@ -176,17 +176,20 @@ if (C.whatsapp.number === PLACEHOLDER_WA) {
 
 /* ---------------------------------------------------------
    Identificação legal (rodapé + Política de Privacidade)
+
+   A prospher ainda opera como pessoa física, sem CNPJ - por isso a
+   identificação do controlador (checklist 22.2) e a própria Política de
+   Privacidade/Acesso são páginas estáticas versionadas em
+   politica-de-privacidade/ e politica-de-acesso/, e não texto gerado a
+   partir de razaoSocial/cnpj/cidade. O build só copia essas pastas para
+   dist/; ele não exige CNPJ para publicá-las.
    --------------------------------------------------------- */
 const legal = (C.site && C.site.legal) || {};
-const legalCompleto = Boolean(
-  legal.razaoSocial && legal.cnpj && legal.cidade && legal.emailTitular
-);
 
-if (!legalCompleto) {
+if (!legal.emailTitular) {
   warn(
-    "site.legal incompleto em js/content.js (razaoSocial / cnpj / cidade / emailTitular).\n" +
-      "            A Politica de Privacidade NAO foi gerada - nao se publica politica\n" +
-      "            sem identificar o controlador (checklist 22.2) - e o rodape sai sem CNPJ."
+    "site.legal.emailTitular ausente em js/content.js - sem ele o security.txt\n" +
+      "            nao e publicado (canal do art. 18 da LGPD)."
   );
 }
 
@@ -404,7 +407,10 @@ function renderFooter(html) {
   );
 
   // Identificação do responsável pelo site — Marco Civil / CDC (§31.7, §23.2).
-  if (legalCompleto) {
+  // Sem CNPJ (pessoa física), essa identificação vive na própria Política de
+  // Privacidade estática, não no rodapé - só mostra algo aqui se um dia
+  // razaoSocial/cnpj forem preenchidos (pessoa jurídica).
+  if (legal.razaoSocial && legal.cnpj) {
     const partes = [legal.razaoSocial, "CNPJ " + legal.cnpj];
     if (legal.cidade) partes.push(legal.cidade);
     html = setText(html, "pr-footer-identity", partes.join(" · "));
@@ -412,15 +418,9 @@ function renderFooter(html) {
     html = removeEl(html, "pr-footer-identity");
   }
 
-  // Só publica link para página que o build realmente gerou. Trocar href="#"
+  // Só publica link para página que existe de verdade. Trocar href="#"
   // por um link que dá 404 não resolveria nada.
-  const links = C.footer.legalLinks.filter((l) => {
-    if (l.href === "/privacidade" && !legalCompleto) {
-      warn('link "' + l.label + '" omitido do rodape: a pagina /privacidade nao foi gerada.');
-      return false;
-    }
-    return l.href && l.href !== "#";
-  });
+  const links = C.footer.legalLinks.filter((l) => Boolean(l.href) && l.href !== "#");
 
   let legalLinks = links
     .map((l) => '<a href="' + attr(l.href) + '">' + esc(l.label) + "</a>")
@@ -689,32 +689,20 @@ function main() {
     })
   );
 
-  if (legalCompleto) {
-    const politica = fs.readFileSync(path.join(ROOT, "templates", "privacidade.html"), "utf8");
-    write(
-      "privacidade/index.html",
-      buildSimplePage(shell, {
-        ...common,
-        pathname: "/privacidade",
-        title: "Política de Privacidade — prospher",
-        description:
-          "Como a prospher trata dados pessoais neste site: o que é coletado, com que base legal e como exercer seus direitos.",
-        heading: "Política de Privacidade",
-        body: politica
-          .replace(/\{\{RAZAO_SOCIAL\}\}/g, esc(legal.razaoSocial))
-          .replace(/\{\{CNPJ\}\}/g, esc(legal.cnpj))
-          .replace(/\{\{EMAIL_TITULAR\}\}/g, esc(legal.emailTitular))
-          .replace(/\{\{CIDADE\}\}/g, esc(legal.cidade || ""))
-          .replace(/\{\{VIGENCIA\}\}/g, esc(legal.vigenciaPolitica || buildDate)),
-      })
-    );
-  }
-
   // --- estáticos ---
   copyDir(path.join(ROOT, "assets"), path.join(OUT, "assets"));
   copyDir(path.join(ROOT, "css"), path.join(OUT, "css"));
   fs.mkdirSync(path.join(OUT, "js"), { recursive: true });
   fs.copyFileSync(path.join(ROOT, "js", "main.js"), path.join(OUT, "js", "main.js"));
+  fs.copyFileSync(path.join(ROOT, "js", "legal.js"), path.join(OUT, "js", "legal.js"));
+
+  // Política de Acesso / Política de Privacidade — páginas estáticas
+  // (pessoa física, sem CNPJ), mantidas à mão fora de js/content.js.
+  for (const dir of ["politica-de-acesso", "politica-de-privacidade"]) {
+    const src = path.join(ROOT, dir);
+    if (fs.existsSync(src)) copyDir(src, path.join(OUT, dir));
+    else warn("pasta ausente, nao copiada para dist/: " + dir);
+  }
 
   for (const f of ["robots.txt", "llms.txt", "_headers", "favicon.ico", "apple-touch-icon.png"]) {
     const src = path.join(ROOT, f);
@@ -750,16 +738,19 @@ function main() {
       "    <changefreq>monthly</changefreq>\n" +
       "    <priority>1.0</priority>\n" +
       "  </url>\n" +
-      (legalCompleto
-        ? "  <url>\n    <loc>" + SITE_URL + "/privacidade</loc>\n    <lastmod>" +
-          buildDate + "</lastmod>\n    <changefreq>yearly</changefreq>\n" +
-          "    <priority>0.3</priority>\n  </url>\n"
-        : "") +
+      ["politica-de-acesso", "politica-de-privacidade"]
+        .map(
+          (dir) =>
+            "  <url>\n    <loc>" + SITE_URL + "/" + dir + "/</loc>\n    <lastmod>" +
+            buildDate + "</lastmod>\n    <changefreq>yearly</changefreq>\n" +
+            "    <priority>0.3</priority>\n  </url>\n"
+        )
+        .join("") +
       "</urlset>\n"
   );
 
   // --- relatório ---
-  const pages = ["index.html", "404.html"].concat(legalCompleto ? ["privacidade/"] : []);
+  const pages = ["index.html", "404.html", "politica-de-acesso/", "politica-de-privacidade/"];
   console.log("build ok - dist/ gerado");
   console.log("  commit  " + commit + "  ." + "  " + buildDate);
   console.log("  paginas " + pages.join(", "));
