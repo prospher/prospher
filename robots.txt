@@ -1,4 +1,11 @@
-User-agent: *
-Allow: /
+# A Cloudflare injeta um bloco "Managed content" antes deste arquivo, com o
+# grupo User-agent: * e o Content-Signal (search=yes, ai-train=no). Repetir o
+# grupo aqui criaria dois User-agent: * no arquivo final, o que confunde o
+# parsing - entao este arquivo carrega apenas o sitemap.
+#
+# Decisao registrada (27/08/2026): bots de BUSCA/CITACAO liberados
+# (OAI-SearchBot, PerplexityBot, Claude-SearchBot, Googlebot, bingbot);
+# bots de TREINAMENTO bloqueados pelo bloco gerenciado da Cloudflare.
+# Ver checklist-producao-web.md, secao 12.1.
 
 Sitemap: https://prospher.com.br/sitemap.xml
