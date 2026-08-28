@@ -1,0 +1,7 @@
+{
+  "name": "prospher",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  }
+}
