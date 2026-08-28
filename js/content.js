@@ -202,13 +202,11 @@ const SITE_CONTENT = {
     // {{ANO}} e substituido pelo ano corrente no build. Ano fixo no rodape
     // e o sinal universal de site abandonado (checklist 31.6).
     copyright: "© {{ANO}} prospher. Todos os direitos reservados.",
-    // Só entram links que existem de verdade. Termos de Uso saiu daqui: sem
     // cadastro de usuário ele é recomendado, não obrigatório — e link morto
     // (href="#") em produção é pior do que link ausente.
     legalLinks: [
       { label: "Política de Acesso", href: "politica-de-acesso/" },
       { label: "Política de Privacidade", href: "politica-de-privacidade/" },
-      { label: "Termos de Uso", href: "#" },
     ],
   },
 
