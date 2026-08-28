@@ -3,50 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="build" content="dev">
 <title>prospher — Presença digital para advogados</title>
-<meta name="description" content="Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.">
+<meta name="description" content="">
 <link rel="canonical" href="https://prospher.com.br/">
+
+<!--
+  Este arquivo é o TEMPLATE. Os textos vêm de js/content.js e são inseridos
+  por build.js na geração do dist/. Não escreva conteúdo direto aqui — os
+  elementos com id são preenchidos no build e qualquer texto colocado neles
+  à mão será sobrescrito.
+-->
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="prospher">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://prospher.com.br/">
-<meta property="og:title" content="prospher — Presença digital para advogados">
-<meta property="og:description" content="Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.">
-<meta property="og:image" content="https://prospher.com.br/assets/word.svg">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://prospher.com.br/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="prospher — presença digital para advogados">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="prospher — Presença digital para advogados">
-<meta name="twitter:description" content="Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.">
-<meta name="twitter:image" content="https://prospher.com.br/assets/word.svg">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://prospher.com.br/assets/og.png">
 
-<link rel="icon" type="image/svg+xml" href="assets/mark.svg">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0B4F3D">
+
+<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "prospher",
-  "description": "Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.",
-  "url": "https://prospher.com.br/",
-  "image": "https://prospher.com.br/assets/word.svg",
-  "areaServed": "BR",
-  "serviceType": "Marketing digital e captação de clientes para advogados"
-}
-</script>
+<script type="application/ld+json" id="pr-jsonld"></script>
 </head>
 <body>
 <div class="pr-page">
 
+  <a class="pr-skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!--
+    Rede de segurança: build.js remove este bloco ao gerar o dist/. Se ele
+    aparecer em produção, é porque o deploy publicou a raiz do repositório em
+    vez de dist/ — e a página está vazia. Melhor gritar do que servir em branco.
+  -->
+  <div id="pr-build-warning" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;background:#111;color:#fff;font:600 16px/1.6 system-ui,sans-serif;text-align:center">
+    <div style="max-width:44ch">
+      <p style="margin:0 0 12px;font-size:20px">Esta página não foi gerada.</p>
+      <p style="margin:0;font-weight:400;opacity:.75">
+        O deploy publicou a raiz do repositório. Na Cloudflare Pages, defina
+        <b>build command</b> como <code>node build.js</code> e
+        <b>build output directory</b> como <code>dist</code>.
+      </p>
+    </div>
+  </div>
+
   <header class="pr-header">
     <div class="pr-header-inner">
-      <a href="#topo" class="pr-brand">
-        <img src="assets/mark.svg" alt="prospher" class="pr-brand-mark">
-        <img src="assets/word.svg" alt="prospher" class="pr-brand-word">
+      <a href="#topo" class="pr-brand" aria-label="prospher — início">
+        <img src="assets/mark.svg" alt="" width="697" height="688" class="pr-brand-mark">
+        <img src="assets/word.svg" alt="prospher" width="1093" height="227" class="pr-brand-word">
       </a>
-      <nav class="pr-nav-links" id="pr-nav-links"></nav>
-      <a class="pr-btn pr-nav-cta" data-nav-cta target="_blank" rel="noopener"></a>
-      <button class="pr-hamburger" id="pr-hamburger" aria-label="Menu">
+      <nav class="pr-nav-links" id="pr-nav-links" aria-label="Principal"></nav>
+      <a class="pr-btn pr-nav-cta" id="pr-nav-cta" data-nav-cta data-wa="header" href="#" target="_blank" rel="noopener"></a>
+      <button class="pr-hamburger" id="pr-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="pr-mobile-panel" type="button">
         <span class="pr-hamburger-line"></span>
         <span class="pr-hamburger-line"></span>
         <span class="pr-hamburger-line"></span>
@@ -58,14 +82,15 @@
     <div id="pr-mobile-links" style="display:contents"></div>
   </div>
 
+  <main id="conteudo">
+
   <section id="topo" class="pr-hero">
     <div>
-      <!-- Conteúdo estático abaixo deve ficar igual a SITE_CONTENT.hero em js/content.js (js/main.js apenas reafirma o mesmo texto) -->
-      <span class="pr-kicker" id="pr-hero-kicker">Presença digital profissional para advogados.</span>
-      <h1 class="pr-hero-title" id="pr-hero-title">Pare de depender só de indicações.</h1>
-      <p class="pr-hero-subtitle" id="pr-hero-subtitle">Estrutura completa que você constrói conosco. Página, tráfego e atendimento customizados para atrair quem realmente precisa de você.</p>
+      <span class="pr-kicker" id="pr-hero-kicker"></span>
+      <h1 class="pr-hero-title" id="pr-hero-title"></h1>
+      <p class="pr-hero-subtitle" id="pr-hero-subtitle"></p>
       <div class="pr-hero-actions">
-        <a href="#" class="pr-btn" id="pr-hero-cta" target="_blank" rel="noopener"></a>
+        <a href="#" class="pr-btn" id="pr-hero-cta" data-wa="hero" target="_blank" rel="noopener"></a>
       </div>
       <div class="pr-hero-badges" id="pr-hero-badges"></div>
     </div>
@@ -73,7 +98,7 @@
     <div id="pr-hero-conversa" hidden>
       <div class="pr-chat">
         <div class="pr-chat-head">
-          <img src="assets/mark.svg" alt="">
+          <img src="assets/mark.svg" alt="" width="697" height="688">
           <span class="pr-chat-head-label" id="pr-chat-label"></span>
           <span class="pr-chat-status">
             <span class="pr-chat-status-dot"></span><span id="pr-chat-status-label"></span>
@@ -90,7 +115,7 @@
           <div class="pr-connect-col" id="pr-connect-left"></div>
           <div class="pr-connect-mid">
             <div class="pr-connect-track"><span></span></div>
-            <img src="assets/mark-white.svg" alt="prospher">
+            <img src="assets/mark-white.svg" alt="" width="697" height="688">
             <div class="pr-connect-track"><span style="animation-delay:.9s"></span></div>
           </div>
           <div class="pr-connect-col" id="pr-connect-right"></div>
@@ -119,7 +144,7 @@
       </div>
 
       <div class="pr-hero-actions" style="margin-top:clamp(40px,5vw,56px)">
-        <a href="#" class="pr-btn" id="pr-solucao-cta" target="_blank" rel="noopener"></a>
+        <a href="#" class="pr-btn" id="pr-solucao-cta" data-wa="solucao" target="_blank" rel="noopener"></a>
       </div>
     </div>
   </section>
@@ -149,26 +174,28 @@
         <div class="pr-contact-glow"></div>
         <div class="pr-contact-noise"></div>
         <div class="pr-contact-content">
-          <img src="assets/word-white.svg" alt="prospher" class="pr-contact-logo">
+          <img src="assets/word-white.svg" alt="prospher" width="1093" height="227" class="pr-contact-logo">
           <h2 class="pr-contact-title" id="pr-contato-title"></h2>
           <p class="pr-contact-subtitle" id="pr-contato-subtitle"></p>
-          <a href="#" class="pr-btn pr-btn--light" id="pr-contato-cta" target="_blank" rel="noopener"></a>
+          <a href="#" class="pr-btn pr-btn--light" id="pr-contato-cta" data-wa="contato" target="_blank" rel="noopener"></a>
           <div class="pr-contact-checks" id="pr-contato-checks"></div>
         </div>
       </div>
     </div>
   </section>
 
+  </main>
+
   <footer class="pr-footer">
     <div class="pr-footer-grid">
       <div>
-        <img src="assets/word-white.svg" alt="prospher" class="pr-footer-logo">
+        <img src="assets/word-white.svg" alt="prospher" width="1093" height="227" class="pr-footer-logo">
         <p class="pr-footer-desc" id="pr-footer-desc"></p>
         <p class="pr-footer-tagline" id="pr-footer-tagline"></p>
       </div>
       <div>
         <span class="pr-footer-heading" id="pr-footer-nav-label"></span>
-        <div class="pr-footer-links" id="pr-footer-nav-links"></div>
+        <nav class="pr-footer-links" id="pr-footer-nav-links" aria-label="Rodapé"></nav>
       </div>
       <div>
         <span class="pr-footer-heading" id="pr-footer-contact-label"></span>
@@ -177,14 +204,17 @@
     </div>
     <div class="pr-footer-bottom">
       <div class="pr-footer-bottom-inner">
-        <span class="pr-footer-copyright" id="pr-footer-copyright"></span>
+        <div class="pr-footer-copy">
+          <span class="pr-footer-copyright" id="pr-footer-copyright"></span>
+          <span class="pr-footer-identity" id="pr-footer-identity"></span>
+        </div>
         <div class="pr-footer-legal" id="pr-footer-legal"></div>
       </div>
     </div>
   </footer>
 
   <div class="pr-modal-backdrop" id="pr-seo-modal">
-    <div class="pr-modal">
+    <div class="pr-modal" role="dialog" aria-modal="true" aria-labelledby="pr-modal-title">
       <div class="pr-modal-head">
         <div>
           <span class="pr-kicker" id="pr-modal-kicker" style="margin-bottom:8px"></span>

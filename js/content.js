@@ -13,9 +13,37 @@ const SITE_CONTENT = {
     description: "Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.",
   },
 
+  // Identificação da empresa. Alimenta o rodapé (Marco Civil / CDC) e o JSON-LD.
+  //
+  // A prospher ainda opera como pessoa física, sem CNPJ — por isso razaoSocial/
+  // cnpj/cidade ficam null e o rodapé não exibe identidade de pessoa jurídica.
+  // A identificação do controlador e o texto legal em si vivem nas páginas
+  // estáticas politica-de-privacidade/ e politica-de-acesso/ (não são gerados
+  // a partir daqui). Se um dia a prospher virar pessoa jurídica, preencha
+  // razaoSocial/cnpj/cidade abaixo.
+  site: {
+    legal: {
+      razaoSocial: null,      // ex.: "Prospher Tecnologia Ltda."
+      cnpj: null,             // ex.: "00.000.000/0001-00"
+      cidade: null,           // ex.: "São José do Rio Preto/SP"
+      emailTitular: "prospher.adm@gmail.com", // canal do art. 18 da LGPD — usado no security.txt
+    },
+    // Perfis oficiais, usados em sameAs no JSON-LD. Só entram se preenchidos.
+    sameAs: [],
+
+    // Medição. Cloudflare Web Analytics: sem cookie, sem fingerprint — por isso
+    // o site não precisa de banner de consentimento. Pegue o token em
+    // Cloudflare > Analytics & Logs > Web Analytics. Se null, nada é injetado.
+    analytics: {
+      cloudflareToken: null,
+    },
+  },
+
   // Número e mensagens pré-preenchidas do WhatsApp usadas nos botões do site.
+  // Formato wa.me: só dígitos, com DDI e DDD, sem "+", espaço ou parêntese.
+  // É a única conversão do site — o build falha o aviso se voltar ao placeholder.
   whatsapp: {
-    number: "5511999999999",
+    number: "5517996007388",
     messages: {
       geral: "Olá, sou advogado e quero saber como a prospher pode me trazer clientes.",
       diagnostico: "Olá, quero um diagnóstico da minha advocacia.",
@@ -171,9 +199,15 @@ const SITE_CONTENT = {
     contactLinks: [
       { label: "WhatsApp", whatsappMessage: "geral" },
     ],
-    copyright: "© 2026 prospher. Todos os direitos reservados.",
+    // {{ANO}} e substituido pelo ano corrente no build. Ano fixo no rodape
+    // e o sinal universal de site abandonado (checklist 31.6).
+    copyright: "© {{ANO}} prospher. Todos os direitos reservados.",
+    // Só entram links que existem de verdade. Termos de Uso saiu daqui: sem
+    // cadastro de usuário ele é recomendado, não obrigatório — e link morto
+    // (href="#") em produção é pior do que link ausente.
     legalLinks: [
-      { label: "Política de Privacidade", href: "#" },
+      { label: "Política de Acesso", href: "politica-de-acesso/" },
+      { label: "Política de Privacidade", href: "politica-de-privacidade/" },
       { label: "Termos de Uso", href: "#" },
     ],
   },
