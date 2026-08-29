@@ -57,12 +57,56 @@
   function setupModal() {
     const backdrop = document.getElementById("pr-seo-modal");
     const closeBtn = document.getElementById("pr-modal-close");
+    const groupsEl = document.getElementById("pr-modal-groups");
     if (!backdrop || !closeBtn) return;
 
     let lastFocused = null;
+    let carregado = false;
+
+    // Os termos vêm de /seo-termos.json em vez de virem no HTML: dentro de um
+    // elemento com display:none, eles seriam texto oculto aos olhos do Google.
+    // Carrega uma vez, na primeira abertura.
+    function carregarTermos() {
+      if (carregado || !groupsEl) return;
+      carregado = true;
+      fetch("/seo-termos.json", { headers: { Accept: "application/json" } })
+        .then((r) => {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then((data) => {
+          const frag = document.createDocumentFragment();
+          (data.groups || []).forEach((g) => {
+            const bloco = document.createElement("div");
+            bloco.className = "pr-modal-group";
+
+            const h3 = document.createElement("h3");
+            h3.textContent = g.title;
+            bloco.appendChild(h3);
+
+            const palavras = document.createElement("div");
+            palavras.className = "pr-modal-words";
+            (g.words || []).forEach((w) => {
+              const span = document.createElement("span");
+              span.className = "pr-modal-word";
+              span.textContent = w;
+              palavras.appendChild(span);
+            });
+            bloco.appendChild(palavras);
+            frag.appendChild(bloco);
+          });
+          groupsEl.textContent = "";
+          groupsEl.appendChild(frag);
+        })
+        .catch(() => {
+          carregado = false;
+          groupsEl.textContent = "Não foi possível carregar os termos agora.";
+        });
+    }
 
     function open(trigger) {
       lastFocused = trigger || document.activeElement;
+      carregarTermos();
       backdrop.classList.add("is-open");
       document.body.style.overflow = "hidden";
       closeBtn.focus();

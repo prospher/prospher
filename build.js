@@ -433,22 +433,21 @@ function renderFooter(html) {
   return append(html, "pr-footer-legal", legalLinks);
 }
 
+/**
+ * O modal de SEO é argumento de venda: mostra ao visitante quais termos a
+ * prospher persegue. Mas os ~56 termos NÃO podem ir no HTML servido.
+ *
+ * Eles ficavam dentro de uma div com `display:none`, o que é literalmente o
+ * que as políticas de spam do Google chamam de texto oculto e keyword
+ * stuffing — num domínio novo, sem autoridade para absorver sinal ruim, é
+ * risco sem contrapartida. Aqui o modal fica vazio no HTML e os termos são
+ * buscados de /seo-termos.json só quando alguém abre. Ver js/main.js.
+ */
 function renderSeoModal(html) {
   if (!C.seo.enabled) return removeEl(html, "pr-seo-modal");
   html = setText(html, "pr-modal-kicker", C.seo.kicker);
   html = setText(html, "pr-modal-title", C.seo.title);
-  return append(
-    html,
-    "pr-modal-groups",
-    C.seo.groups
-      .map(
-        (g) =>
-          '<div class="pr-modal-group"><h3>' + esc(g.title) + '</h3><div class="pr-modal-words">' +
-          g.words.map((w) => '<span class="pr-modal-word">' + esc(w) + "</span>").join("") +
-          "</div></div>"
-      )
-      .join("")
-  );
+  return html;
 }
 
 /* ---------------------------------------------------------
@@ -712,6 +711,12 @@ function main() {
 
   const wellKnown = path.join(ROOT, ".well-known");
   if (fs.existsSync(wellKnown)) copyDir(wellKnown, path.join(OUT, ".well-known"));
+
+  // Termos do modal de SEO, carregados sob demanda pelo main.js. Ficam fora do
+  // HTML de propósito — ver renderSeoModal().
+  if (C.seo.enabled) {
+    write("seo-termos.json", JSON.stringify({ groups: C.seo.groups }));
+  }
 
   // security.txt — canal para reportar vulnerabilidade (§20.12). Precisa de um
   // e-mail que exista; sem ele o arquivo não é publicado.
