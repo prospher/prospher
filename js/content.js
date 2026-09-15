@@ -9,7 +9,7 @@
 const SITE_CONTENT = {
 
   meta: {
-    title: "prospher — Presença digital para advogados",
+    title: "prospher | presença digital para advogados",
     description: "Estrutura completa de tráfego, landing page e atendimento para advogados autônomos pararem de depender só de indicação.",
   },
 
