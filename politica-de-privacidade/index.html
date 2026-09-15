@@ -22,6 +22,26 @@
 
 <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
 <link rel="stylesheet" href="/css/styles.css">
+
+<!--
+  Consent Mode: nega cookies de mensuracao ate o visitante decidir no aviso
+  de cookies (ver #pr-cookie-banner e setupCookieConsent em js/legal.js).
+-->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied'
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-98GRNDKB78"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-98GRNDKB78', { anonymize_ip: true });
+</script>
 </head>
 <body>
 <div class="pr-page">
@@ -40,7 +60,7 @@
         <a href="/index.html#recebe">O que você recebe</a>
         <a href="/index.html#duvidas">Dúvidas</a>
       </nav>
-      <a class="pr-btn pr-nav-cta" href="https://wa.me/5517996007388?text=Ol%C3%A1%2C%20sou%20advogado%20e%20quero%20saber%20como%20a%20prospher%20pode%20me%20trazer%20clientes." target="_blank" rel="noopener">Conectar com a prospher</a>
+      <a class="pr-btn pr-nav-cta" data-wa="pagina" href="https://wa.me/5517996007388?text=Ol%C3%A1%2C%20sou%20advogado%20e%20quero%20saber%20como%20a%20prospher%20pode%20me%20trazer%20clientes." target="_blank" rel="noopener">Conectar com a prospher</a>
       <button class="pr-hamburger" id="pr-hamburger" aria-label="Menu">
         <span class="pr-hamburger-line"></span>
         <span class="pr-hamburger-line"></span>
@@ -55,7 +75,7 @@
     <a href="/index.html#solucao">Solução</a>
     <a href="/index.html#recebe">O que você recebe</a>
     <a href="/index.html#duvidas">Dúvidas</a>
-    <a class="pr-btn" target="_blank" rel="noopener" href="https://wa.me/5517996007388?text=Ol%C3%A1%2C%20sou%20advogado%20e%20quero%20saber%20como%20a%20prospher%20pode%20me%20trazer%20clientes.">Conectar com a prospher</a>
+    <a class="pr-btn" data-wa="pagina" target="_blank" rel="noopener" href="https://wa.me/5517996007388?text=Ol%C3%A1%2C%20sou%20advogado%20e%20quero%20saber%20como%20a%20prospher%20pode%20me%20trazer%20clientes.">Conectar com a prospher</a>
   </div>
 
   <section class="pr-legal-hero">
@@ -189,6 +209,16 @@
       </div>
     </div>
   </footer>
+
+  <div class="pr-cookie-banner" id="pr-cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+    <p class="pr-cookie-text">
+      Usamos cookies de mensuração (Google Analytics) para entender de onde vêm nossos visitantes. Eles só são ativados com o seu consentimento — veja a <a href="/politica-de-privacidade/">política de privacidade</a>.
+    </p>
+    <div class="pr-cookie-actions">
+      <button type="button" class="pr-cookie-btn pr-cookie-btn--reject" id="pr-cookie-reject">Recusar</button>
+      <button type="button" class="pr-cookie-btn pr-cookie-btn--accept" id="pr-cookie-accept">Aceitar</button>
+    </div>
+  </div>
 
 </div>
 
