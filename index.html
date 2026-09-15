@@ -41,24 +41,13 @@
 <link rel="stylesheet" href="css/styles.css">
 <script type="application/ld+json" id="pr-jsonld"></script>
 
-<!--
-  Consent Mode: nega cookies de mensuracao ate o visitante decidir no aviso
-  de cookies (ver #pr-cookie-banner e setupCookieConsent em js/main.js).
--->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-98GRNDKB78"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied'
-  });
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-98GRNDKB78"></script>
-<script>
   gtag('js', new Date());
-  gtag('config', 'G-98GRNDKB78', { anonymize_ip: true });
+  gtag('config', 'G-98GRNDKB78');
 </script>
 </head>
 <body>
@@ -246,15 +235,6 @@
     </div>
   </div>
 
-  <div class="pr-cookie-banner" id="pr-cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
-    <p class="pr-cookie-text">
-      Usamos cookies de mensuração (Google Analytics) para entender de onde vêm nossos visitantes. Eles só são ativados com o seu consentimento — veja a <a href="/politica-de-privacidade/">política de privacidade</a>.
-    </p>
-    <div class="pr-cookie-actions">
-      <button type="button" class="pr-cookie-btn pr-cookie-btn--reject" id="pr-cookie-reject">Recusar</button>
-      <button type="button" class="pr-cookie-btn pr-cookie-btn--accept" id="pr-cookie-accept">Aceitar</button>
-    </div>
-  </div>
 
 </div>
 
