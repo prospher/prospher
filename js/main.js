@@ -122,8 +122,54 @@
         if (window.zaraz && typeof window.zaraz.track === "function") {
           window.zaraz.track("clique_whatsapp", { origem: origem });
         }
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "clique_whatsapp", { origem: origem });
+        }
       });
     });
+  }
+
+  /* ---------------------------------------------------------
+     Consentimento de cookies (Google Consent Mode)
+     --------------------------------------------------------- */
+  function setupCookieConsent() {
+    const KEY = "pr-consent-analytics";
+    const banner = document.getElementById("pr-cookie-banner");
+    if (!banner) return;
+
+    function apply(granted) {
+      if (typeof window.gtag === "function") {
+        window.gtag("consent", "update", { analytics_storage: granted ? "granted" : "denied" });
+      }
+    }
+
+    let saved = null;
+    try {
+      saved = localStorage.getItem(KEY);
+    } catch (e) {
+      /* localStorage bloqueado (modo privado): segue sem escolha salva */
+    }
+
+    if (saved === "granted" || saved === "denied") {
+      apply(saved === "granted");
+      return;
+    }
+
+    banner.hidden = false;
+    function decide(granted) {
+      apply(granted);
+      try {
+        localStorage.setItem(KEY, granted ? "granted" : "denied");
+      } catch (e) {
+        /* segue sem persistir; pergunta de novo na próxima visita */
+      }
+      banner.hidden = true;
+    }
+
+    const accept = document.getElementById("pr-cookie-accept");
+    const reject = document.getElementById("pr-cookie-reject");
+    if (accept) accept.addEventListener("click", () => decide(true));
+    if (reject) reject.addEventListener("click", () => decide(false));
   }
 
   /* ---------------------------------------------------------
@@ -232,6 +278,7 @@
     setupMenu();
     setupModal();
     setupConversao();
+    setupCookieConsent();
 
     const reduce =
       window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -679,6 +679,47 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* ---------------------------------------------------------
+   Aviso de cookies (GA4 / Consent Mode)
+   --------------------------------------------------------- */
+
+.pr-cookie-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2500;
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .28);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.pr-cookie-banner[hidden] { display: none; }
+.pr-cookie-text { margin: 0; font-size: 14px; line-height: 1.5; color: rgba(255, 255, 255, .86); flex: 1 1 320px; }
+.pr-cookie-text a { color: var(--color-white); text-decoration: underline; }
+.pr-cookie-actions { display: flex; gap: 10px; flex-shrink: 0; margin-left: auto; }
+.pr-cookie-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.pr-cookie-btn--accept { background: var(--color-mint); color: var(--color-charcoal); }
+.pr-cookie-btn--accept:hover { background: #3FE0AF; }
+.pr-cookie-btn--reject { background: transparent; color: rgba(255, 255, 255, .7); }
+.pr-cookie-btn--reject:hover { color: var(--color-white); }
+
+/* ---------------------------------------------------------
    Animations & scroll reveal
    --------------------------------------------------------- */
 
